@@ -6,12 +6,12 @@ import React, { useEffect, useState } from 'react'
 // import image5 from '../assest/banner/img5.webp'
 
 
-import image11 from '../assest/banner/img11.webp'
 import image22 from '../assest/banner/img22.webp'
-import image55 from '../assest/banner/img55.webp'
 import image3 from '../assest/banner/img3.jpg'
 import image4 from '../assest/banner/img4.jpg'
-
+import imagex from '../assest/banner/6044958.jpg'
+import imagexx from '../assest/banner/6068408.jpg'
+//Add Another Image From there ............
 
 
 
@@ -29,11 +29,16 @@ const BannerProduct = () => {
     const [currentImage,setCurrentImage] = useState(0)
 
     const desktopImages = [
-        image11,
-        image22,
+        imagex,
+        imagexx,
         image3,
         image4,
-        image55
+        image22,
+        // image1,
+       
+       
+        // image55
+        //Give the name Of Image Which You Want To Diaply On .....
     ]
 
     const mobileImages = [
