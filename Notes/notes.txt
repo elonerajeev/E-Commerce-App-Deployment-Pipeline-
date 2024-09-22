@@ -1,2 +1,10 @@
 1. Check Port 8080 are Free or Not : "netstat -ano | findstr :8080";
 2. if not then run this : "taskkill /PID 6312 /F";
+
+
+
+
+## RUN THE DOCKER CANTAINER ON YOUR LOCAL MACHINE :
+1. FOR FRONTEND : docker pull elone/full-stack-e-commerce-mern-app-frontend   " c4e9f951d1ef"
+2. FOR BACKEND : docker pull elone/full-stack-e-commerce-mern-app-backend    "ec07317085b1 "
+3. FOR MONGO : docker pull elone/mongo        " 95b3ba6bed35"
