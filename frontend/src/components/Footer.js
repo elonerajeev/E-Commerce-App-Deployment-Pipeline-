@@ -22,15 +22,14 @@ const Footer = () => {
             <div className='mb-8 md:mb-0 md:mr-8'>
               <h4 className='text-lg font-bold mb-2'>Follow Us</h4>
               <ul className='list-none space-y-2'>
-                <li><a href='https://facebook.com' className='text-gray-400 hover:text-white transition duration-300'>Facebook</a></li>
-                <li><a href='https://twitter.com' className='text-gray-400 hover:text-white transition duration-300'>Twitter</a></li>
-                <li><a href='https://instagram.com' className='text-gray-400 hover:text-white transition duration-300'>Instagram</a></li>
-                <li><a href='https://linkedin.com' className='text-gray-400 hover:text-white transition duration-300'>LinkedIn</a></li>
+                <li><a href='https://x.com/rajeev02030066' className='text-gray-400 hover:text-white transition duration-300'>Twitter</a></li>
+                <li><a href='https://github.com/elonerajeev' className='text-gray-400 hover:text-white transition duration-300'>Github</a></li>
+                <li><a href='https://www.linkedin.com/in/rajeev-kumar-2209b1243/' className='text-gray-400 hover:text-white transition duration-300'>LinkedIn</a></li>
               </ul>
             </div>
             <div>
               <h4 className='text-lg font-bold mb-2'>Contact Info</h4>
-              <p className='text-gray-400'>Email: <a href='mailto:elonerajeev@eshop.com' className='hover:text-white transition duration-300'>support@eshop.com</a></p>
+              <p className='text-gray-400'>Email: <a href='mailto:elonerajeev@eshop.com' className='hover:text-white transition duration-300'>elonerajeev@gmail.com</a></p>
               <p className='text-gray-400'>Phone: <a href='tel:+91 92641XXXXX' className='hover:text-white transition duration-300'>+91 92641XXXXX</a></p>
               <p className='text-gray-400'>Address : indian XXXXX  CO</p>
             </div>
