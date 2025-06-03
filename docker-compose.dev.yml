@@ -1,0 +1,46 @@
+
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_CLOUD_NAME_CLOUDINARY=dal7ers5p
+    depends_on:
+      - backend
+    networks:
+      - mern
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - Local_MONGODB_URI=mongodb://mongo:27017/e-commerce-app
+      - TOKEN_SECRET_KEY=6fd9a9ec8ecb82ccd2cee076726ef1258a56483
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - mongo
+    networks:
+      - mern
+
+  mongo:
+    image: mongo:7.0.11
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mern
+
+networks:
+  mern:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

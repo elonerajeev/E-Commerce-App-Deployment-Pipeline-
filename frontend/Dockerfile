@@ -1,21 +1,23 @@
-# Use an official Node.js image as the build environment
-FROM node:20.11.0
+# Production Dockerfile for React Frontend
 
-# Set working directory
+FROM node:20.11.0 AS builder
+
 WORKDIR /app
 
-# Copy package.json and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy the rest of the app
 COPY . ./
-
-# Running server Port
-EXPOSE 3000
-
-# Build the app
 RUN npm run build
 
-# Run the Frontend Folder
-CMD ["npm", "start"]
+# Serve the static build using nginx
+FROM nginx:stable-alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Copy custom nginx config if needed
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
