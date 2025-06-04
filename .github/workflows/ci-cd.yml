@@ -70,31 +70,31 @@ jobs:
           docker push $IMAGE_NAME-backend:latest
 
   ### 3. Manual Approval Stage ###
-  approval:
-    name: Wait for Manual Approval
-    needs: build-and-push
-    runs-on: ubuntu-latest
+  # approval:
+  #   name: Wait for Manual Approval
+  #   needs: build-and-push
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Await Deployment Approval
-        uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ secrets.GITHUB_TOKEN }}
-          approvers: elonerajeev
-          minimum-approvals: 1
-          issue-title: "Approve Production Deployment"
-          issue-body: "Please approve to continue deployment of MERN App"
+  #   steps:
+  #     - name: Await Deployment Approval
+  #       uses: trstringer/manual-approval@v1
+  #       with:
+  #         secret: ${{ secrets.GITHUB_TOKEN }}
+  #         approvers: elonerajeev
+  #         minimum-approvals: 1
+  #         issue-title: "Approve Production Deployment"
+  #         issue-body: "Please approve to continue deployment of MERN App"
 
   ### 4. Deployment Stage (to Render, AWS, etc.) ###
   deploy:
     name: Deploy to Render Platform
-    needs: approval
+    needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy Frontend to Render
         run: |
-          echo "Triggering Frontend Deploy Hook...."
+          echo "Triggering Frontend Deploy Hook..."
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
 
       - name: Deploy Backend to Render
