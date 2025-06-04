@@ -1,5 +1,6 @@
 //MUST SURE YOUR BACKEND SERVER RUN ON PORT : 5000
-const backendDomin = "http://localhost:5000"
+//const backendDomin = "http://localhost:5000"
+const backendDomin = "https://e-commerce-app-deployment-pipeline-1.onrender.com"
 
 const SummaryApi = {
     signUP : {
