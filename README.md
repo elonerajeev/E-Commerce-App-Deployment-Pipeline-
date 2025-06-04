@@ -1,177 +1,153 @@
+# 🚀 MERN E-Commerce App Deployment Pipeline
 
-# Full-Stack E-Commerce MERN App
+[![CI/CD Pipeline for MERN App](https://github.com/elonerajeev/E-Commerce-App-Deployment-Pipeline-/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/elonerajeev/E-Commerce-App-Deployment-Pipeline-/actions/workflows/ci-cd.yml)
 
-A comprehensive e-commerce application using the MERN stack (MongoDB, Express.js, React.js, Node.js). This project allows for managing products, categories, and user interactions in an online store.
+Welcome to the **CI/CD Pipeline for a MERN E-Commerce Application**! This repository demonstrates a complete DevOps workflow using Docker, GitHub Actions, and Render for deploying a full-stack MERN (MongoDB, Express, React, Node.js) app.
 
-## Table of Contents
+![alt text](image8.png)
 
-- [Project Overview](#project-overview)
-- [Installation](#installation)
-- [Setup](#setup)
-- [Features](#features)
-- [API Reference](#api-reference)
-- [Acknowledgements](#acknowledgements)
-- [Authors](#authors)
-- [License](#license)
+---
 
-## Project Overview
+## 📦 Project Structure
 
-This project demonstrates a modern e-commerce platform using the MERN stack. It consists of:
+```bash
+📦E-Commerce-App-Deployment-Pipeline-
+├── backend/                         # Express.js backend
+│   ├── config/                      # Configuration files (DB, env, etc.)
+│   ├── controllers/                 # Route controllers
+│   ├── middleware/                  # Express middleware
+│   ├── models/                      # Mongoose models
+│   ├── routes/                      # Express routes
+│   ├── utils/                       # Utility functions
+│   ├── .env.example                 # Example environment variables
+│   ├── Dockerfile                   # Backend Dockerfile
+│   ├── package.json
+│   └── server.js                    # Entry point
+├── frontend/                        # React.js frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/                  # Images and static assets
+│   │   ├── components/              # React components
+│   │   ├── pages/                   # React pages
+│   │   ├── redux/                   # Redux store, slices, actions
+│   │   ├── utils/                   # Utility functions
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── .env.example                 # Example frontend env variables
+│   ├── Dockerfile                   # Frontend Dockerfile
+│   └── package.json
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml                # GitHub Actions workflow
+├── .gitignore
+├── docker-compose.yml               # Docker Compose for local dev
+└── README.md
+```
 
-- **Frontend**: Built with React.js to handle the user interface and interactions.
-- **Backend**: Built with Node.js and Express.js to manage API requests, database interactions, and authentication.
+---
 
-## Installation
+## 📌 What This Pipeline Does
 
-To get started with the Full-Stack E-Commerce MERN App, follow these steps:
+✅ Automatically builds both frontend and backend Docker images<br>
+✅ Pushes images to Docker Hub<br>
+✅ Triggers Render deployments using deploy hooks<br>
+✅ Skips manual approval for fully automated deployment<br>
+✅ Uses GitHub Actions for CI/CD pipeline
 
-### Prerequisites
+---
 
-Ensure you have the following installed:
+## 🛠️ Technologies Used
 
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [npm](https://www.npmjs.com/) (v6 or higher) or [Yarn](https://yarnpkg.com/) (optional)
-- [MongoDB](https://www.mongodb.com/try/download/community) (or use MongoDB Atlas for cloud deployment)
+* ⚙️ **GitHub Actions** – CI/CD automation
+* 🐳 **Docker** – Containerization
+* ☁️ **Render** – Cloud deployment
+* 💾 **MongoDB Atlas** – Cloud database
+* 🌐 **Node.js & Express.js** – Backend
+* 🧠 **React.js** – Frontend
 
-### Backend Installation
+---
 
-1. **Navigate to the Backend Directory:**
+## 🌐 Live Demo Links
 
-   ```bash
-   cd backend
-   ```
-
-2. **Install Backend Dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Set Up Environment Variables:**
-
-   - Create a `.env` file in the `backend` directory.
-   - Add the following environment variables:
-
-     ```plaintext
-     MONGO_URI=<Your MongoDB Connection String>
-     PORT=5000
-     FRONTEND_URL=<Your Frontend URL>
-     JWT_SECRET=<Your JWT Secret>
-     ```
-
-4. **Run Backend Server:**
-
-   ```bash
-   npm start dev
-   ```
-
-### Frontend Installation
-
-1. **Navigate to the Frontend Directory:**
-
-   ```bash
-   cd frontend
-   ```
-
-2. **Install Frontend Dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Run Frontend Development Server:**
-
-   ```bash
-   npm start
-   ```
-
-The frontend will be accessible at `http://localhost:3000` and the backend at `http://localhost:8080` by default. Ensure both servers are running to fully interact with the application.
-
-### Optional: Running Tests
-
-- **For Backend:**
-
-  ```bash
-  cd backend
-  npm test
-  ```
-
-- **For Frontend:**
-
-  ```bash
-  cd frontend
-  npm test
-  ```
-
-### Troubleshooting
-
-- Ensure all environment variables are correctly set and that both backend and frontend servers are running without errors.
-- Check the console for error messages and consult documentation or issue trackers for help.
-
-## Setup
-
-### Project Structure
-
-The project is organized into two main directories:
-
-1. **`frontend`**: Contains the React.js application for the user interface.
-2. **`backend`**: Contains the Node.js and Express.js application for server-side logic and API endpoints.
-
-### File Structure
-
-**Frontend:**
-- `src/`: Contains the main React application code.
-- `public/`: Static assets and HTML file.
-
-**Backend:**
-- `src/`: Contains the server-side code, including routes, controllers, and models.
-- `.env`: Environment variables for configuration.
-- `config/`: Configuration files for the database and other services.
-
-## Features
-
-- **Product Management**: Add, update, and delete products.
-- **Category Management**: Organize products into categories.
-- **User Authentication**: Register, log in, and manage user sessions.
-- **Cart Functionality**: Add products to the shopping cart and proceed to checkout.
-- **Order Processing**: Place orders and view order history.
-
-## API Reference
-
-| Endpoint                 | Method | Description                       |
-|--------------------------|--------|-----------------------------------|
-| `/api/products`          | GET    | Get all products                  |
-| `/api/products/:id`      | GET    | Get a single product by ID         |
-| `/api/products`          | POST   | Add a new product                  |
-| `/api/products/:id`      | PUT    | Update a product by ID             |
-| `/api/products/:id`      | DELETE | Delete a product by ID             |
-| `/api/categories`        | GET    | Get all categories                 |
-| `/api/categories/:id`    | GET    | Get a single category by ID         |
-| `/api/categories`        | POST   | Add a new category                 |
-| `/api/categories/:id`    | PUT    | Update a category by ID            |
-| `/api/categories/:id`    | DELETE | Delete a category by ID            |
-| `/api/users/register`    | POST   | Register a new user                |
-| `/api/users/login`       | POST   | Log in a user                      |
-| `/api/cart`              | GET    | Get user's cart                    |
-| `/api/cart/add`          | POST   | Add an item to the cart            |
-| `/api/cart/remove`       | POST   | Remove an item from the cart       |
-| `/api/orders`            | POST   | Place an order                     |
-| `/api/orders/:id`        | GET    | Get order details by ID            |
-
-## Acknowledgements
-
-- [MERN Stack Documentation](https://www.mongodb.com/mern-stack)
-- [React Documentation](https://reactjs.org/docs/getting-started.html)
-- [Node.js Documentation](https://nodejs.org/en/docs/)
-- [Express.js Documentation](https://expressjs.com/)
+* 🔗 **Frontend**: [Live Frontend on Render](https://e-commerce-app-deployment-pipeline.onrender.com)
+* 🔗 **Backend API**: [Live Backend on Render](https://e-commerce-app-deployment-pipeline-1.onrender.com)
 
 
-## Authors
+---
 
-- **Rajeev Kumar**: [LinkedIn](https://www.linkedin.com/in/rajeev-kumar-2209b1243) | [GitHub](https://github.com/elonerajeev)
-- **Elone Rajeev**: [LinkedIn](https://www.linkedin.com/in/rajeev-kumar-2209b1243) | [GitHub](https://github.com/elonerajeev)
+## 🚦 CI/CD Pipeline Flow Diagram
 
-## License
+![alt text](image.png)
+![alt text](image1.png)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+
+### 🔁 Workflow Stages
+
+1. **Push to main branch**
+2. ✅ CI: Install, Lint, and Build code
+3. 🛠️ Docker Build for Frontend & Backend
+4. 📦 Push Docker Images to Docker Hub
+5. 🚀 Trigger Deploy Hooks on Render
+
+
+> 💡 Want to try it yourself? Fork this repo and set your own Docker & Render secrets!
+
+---
+
+## 🔐 Secrets Configuration (GitHub → Settings → Secrets → Actions)
+
+| Secret Name                   | Description                      |
+| ----------------------------- | -------------------------------- |
+| `DOCKER_USERNAME`             | Your Docker Hub username         |
+| `DOCKER_PASSWORD`             | Docker Hub access token/password |
+| `RENDER_DEPLOY_HOOK_FRONTEND` | Render deploy hook for frontend  |
+| `RENDER_DEPLOY_HOOK_BACKEND`  | Render deploy hook for backend   |
+
+---
+
+## ✅ Workflow Badge
+
+Display this badge in your repo to show the pipeline status:
+
+[![CI/CD Pipeline for MERN App](https://github.com/elonerajeev/E-Commerce-App-Deployment-Pipeline-/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/elonerajeev/E-Commerce-App-Deployment-Pipeline-/actions/workflows/ci-cd.yml)
+---
+
+## 📸 Screenshots
+
+### ✅ GitHub Actions Pipeline Passed
+
+![alt text](image.png)
+[![CI/CD Pipeline for MERN App](https://github.com/elonerajeev/E-Commerce-App-Deployment-Pipeline-/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/elonerajeev/E-Commerce-App-Deployment-Pipeline-/actions/workflows/ci-cd.yml)
+
+### 🖥️ Live Frontend on Render
+
+* 🔗 **Frontend**: [Live Frontend on Render](https://e-commerce-app-deployment-pipeline.onrender.com)
+
+![alt text](image4.png)
+
+![alt text](image5.png)
+
+![alt text](image6.png)
+
+### 🧠 Backend API Connected to MongoDB
+
+![alt text](image7.png)
+---
+
+## 🤝 Author
+
+Made with ❤️ by **[Rajeev Kumar (Elone Rajeev)](https://github.com/elonerajeev)**
+
+* 📧 Email: [rajeevkumarx12@gmail.com](mailto:rajeevkumarx12@gmail.com)
+* 💼 [LinkedIn](https://linkedin.com/in/rajeev-kumar-2209b1243)
+* 🧑‍💻 [GitHub](https://github.com/elonerajeev)
+* 🌐 [Portfolio](https://rajeevxportfolio.netlify.app)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+> 🔄 Always feel free to contribute or suggest improvements!
