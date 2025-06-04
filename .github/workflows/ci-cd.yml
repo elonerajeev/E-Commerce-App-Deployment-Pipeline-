@@ -94,7 +94,7 @@ jobs:
     steps:
       - name: Deploy Frontend to Render
         run: |
-          echo "Triggering Frontend Deploy Hook..."
+          echo "Triggering Frontend Deploy Hook...."
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
 
       - name: Deploy Backend to Render
