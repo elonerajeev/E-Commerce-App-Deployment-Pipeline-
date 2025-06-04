@@ -3,25 +3,41 @@ import { useLocation } from 'react-router-dom'
 import SummaryApi from '../common'
 import VerticalCard from '../components/VerticalCard'
 
-const SearchProduct = () => {
-    const query = useLocation()
-    const [data,setData] = useState([])
-    const [loading,setLoading] = useState(false)
+// const SearchProduct = () => {
+//     const query = useLocation()
+//     const [data,setData] = useState([])
+//     const [loading,setLoading] = useState(false)
 
-    console.log("query",query.search)
+//     console.log("query",query.search)
 
-    const fetchProduct = async()=>{
-        setLoading(true)
-        const response = await fetch(SummaryApi.searchProduct.url+query.search)
-        const dataResponse = await response.json()
-        setLoading(false)
+//     const fetchProduct = async()=>{
+//         setLoading(true)
+//         const response = await fetch(SummaryApi.searchProduct.url+query.search)
+//         const dataResponse = await response.json()
+//         setLoading(false)
 
-        setData(dataResponse.data)
-    }
+//         setData(dataResponse.data)
+//     }
 
-    useEffect(()=>{
-        fetchProduct()
-    },[query])
+//     useEffect(()=>{
+//         fetchProduct()
+//     },[query])
+
+
+const SearchProduct = ({ query }) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true);
+      const response = await fetch(SummaryApi.searchProduct.url + query.search);
+      const dataResponse = await response.json();
+      setLoading(false);
+      setData(dataResponse.data);
+    };
+    fetchProduct();
+  }, [query]);
 
   return (
     <div className='container mx-auto p-4'>
