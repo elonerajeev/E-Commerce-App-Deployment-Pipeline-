@@ -88,20 +88,19 @@ jobs:
           issue-title: "Approve Production Deployment"
           issue-body: "Please approve to continue deployment of MERN App"
 
-  ### 4. Deployment Stage (to Render, AWS, etc.) ###
+    ### 4. Deployment Stage (to Render, AWS, etc.) ###
   deploy:
-  name: Deploy to Render Platform
-  needs: approval
-  runs-on: ubuntu-latest
+    name: Deploy to Render Platform
+    needs: approval
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Deploy Frontend to Render
-      run: |
-        echo "Triggering Frontend Deploy Hook..."
-        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
+    steps:
+      - name: Deploy Frontend to Render
+        run: |
+          echo "Triggering Frontend Deploy Hook..."
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
 
-    - name: Deploy Backend to Render
-      run: |
-        echo "Triggering Backend Deploy Hook..."
-        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_BACKEND }}
-
+      - name: Deploy Backend to Render
+        run: |
+          echo "Triggering Backend Deploy Hook..."
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_BACKEND }}
