@@ -1,0 +1,107 @@
+name: CI/CD Pipeline for MERN App
+
+on:
+  push:
+    branches:
+      - main  # Run the workflow only on main branch push
+
+jobs:
+  ### 1. Lint and Test Job (CI) ###
+  test:
+    name: Test Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies (Frontend)
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Lint and Build Frontend
+        working-directory: ./frontend
+        run: |
+          npm run lint || echo "Linting skipped or optional"
+          npm run build
+
+      - name: Install dependencies (Backend)
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Run Backend Tests (if any)
+        working-directory: ./backend
+        run: |
+          echo "No backend tests yet"  # Replace with: npm test
+
+  ### 2. Build and Push Docker Images to Docker Hub ###
+  build-and-push:
+    name: Build & Push Docker Images
+    needs: test
+    runs-on: ubuntu-latest
+
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      IMAGE_NAME: elonerajeev/mern-ecommerce
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - name: Build and Tag Frontend Image
+        run: |
+          docker build -t $IMAGE_NAME-frontend:latest ./frontend
+          docker tag $IMAGE_NAME-frontend:latest $IMAGE_NAME-frontend:latest
+
+      - name: Build and Tag Backend Image
+        run: |
+          docker build -t $IMAGE_NAME-backend:latest ./backend
+          docker tag $IMAGE_NAME-backend:latest $IMAGE_NAME-backend:latest
+
+      - name: Push Frontend & Backend Images
+        run: |
+          docker push $IMAGE_NAME-frontend:latest
+          docker push $IMAGE_NAME-backend:latest
+
+  ### 3. Manual Approval Stage ###
+  approval:
+    name: Wait for Manual Approval
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Await Deployment Approval
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.GITHUB_TOKEN }}
+          approvers: elonerajeev  # Change to your GitHub username
+          minimum-approvals: 1
+          issue-title: "Approve Production Deployment"
+          issue-body: "Please approve to continue deployment of MERN App"
+
+  ### 4. Deployment Stage (to Render, AWS, etc.) ###
+  deploy:
+  name: Deploy to Render Platform
+  needs: approval
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Deploy Frontend to Render
+      run: |
+        echo "Triggering Frontend Deploy Hook..."
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
+
+    - name: Deploy Backend to Render
+      run: |
+        echo "Triggering Backend Deploy Hook..."
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_BACKEND }}
+
